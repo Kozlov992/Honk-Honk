@@ -85,7 +85,7 @@ public:
         if (!head)
             return false;
         ListNode *slow = head, *fast = head->next;
-        while (!(slow == fast)){
+        while (slow != fast){
             if (!fast || !fast->next)
                 return false;
             slow = slow->next;
@@ -104,7 +104,7 @@ public:
         if (!head)
             return NULL;
         ListNode *slow = head, *fast = head->next;
-        while (!(slow == fast)){
+        while (slow != fast){
             if (!fast || !fast->next)
                 return NULL;
             slow = slow->next;
@@ -270,30 +270,26 @@ public:
             }
             return prev;
         }
-    ListNode* middleNode(ListNode* head) {
+    ListNode* middleNode(ListNode* head, int* i) {
         ListNode* fast = head, * slow = head;
+        *i = 0;
         while (fast) {
+            (*i)++;
             fast = fast->next;
             if (fast) {
+                (*i)++;
                 fast = fast->next;
                 slow = slow->next;
             }
         }
         return slow;
     }
-    int ListSize(ListNode* head) {
-		int size = 0;
-		while (head) {
-			head = head->next;
-			size++;
-		}
-		return size;
-	}
     bool isPalindrome(ListNode* head) {
         if (!head || !head->next)
             return true;
-        ListNode* q = middleNode(head);
-        if (ListSize(head) % 2) {
+        int i;
+        ListNode* q = middleNode(head, &i);
+        if (i % 2) {
             q->next = reverseList(q->next);
             q = q->next;
         }
@@ -350,7 +346,7 @@ public:
         if (!headA || !headB)
             return NULL;
         ListNode* pA = headA, *pB = headB;
-        while (!(pA == pB)){
+        while (pA != pB){
             pA = pA->next;
             pB = pB->next;
             if (!pA && !pB)

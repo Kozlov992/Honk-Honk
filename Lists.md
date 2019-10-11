@@ -203,24 +203,24 @@ https://leetcode.com/problems/remove-linked-list-elements/
 class Solution {
 public:
 	ListNode* removeElements(ListNode* head, int val) {
-		if (!head)
-			return NULL;
-		ListNode* temp = new ListNode(0);
-		temp->next = head;
-		ListNode* current = temp;
-		ListNode* buf = NULL;
-		while (current->next) {
-			if (current->next->val == val) {
-				buf = current->next;
-				current->next = current->next->next;
-				delete buf;
-			}
-            		else
-				current = current->next;
-		}
-		buf = temp->next;
-        	delete temp;
-        	return buf;
+	    if (!head)
+	        return NULL;
+	    ListNode* temp = new ListNode(0);
+	    temp->next = head;
+	    ListNode* current = temp;
+	    ListNode* buf = NULL;
+	    while (current->next) {
+		   if (current->next->val == val) {
+		   	buf = current->next;
+		   	current->next = current->next->next;
+		   	delete buf;
+		   }
+            	   else
+		   	current = current->next;
+	    }
+	    buf = temp->next;
+            delete temp;
+            return buf;
 	}
 };
 ```
@@ -248,14 +248,14 @@ class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
         ListNode *prev = NULL, *buf = NULL;
-            while (head){
-                buf = head->next;
-                head->next = prev;
-                prev = head;
-                head = buf;
-            }
-            return prev;
+        while (head){
+            buf = head->next;
+            head->next = prev;
+            prev = head;
+            head = buf;
         }
+        return prev;
+    }
     ListNode* middleNode(ListNode* head) {
         ListNode* pFast = head, * pSlow = head;
         while (pFast) {
@@ -273,10 +273,10 @@ public:
         ListNode* current = middleNode(head);
         current = reverseList(current);
         while (current && head){
-                if (current->val != head->val)
-                    return false;
-                head = head->next;
-                current = current->next;
+            if (current->val != head->val)
+                return false;
+            head = head->next;
+            current = current->next;
         }
         return true;
     }
@@ -303,14 +303,14 @@ class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
         ListNode* pFast = head, * pSlow = head;
-		while (pFast) {
-			pFast = pFast->next;
-			if (pFast) {
-				pFast = pFast->next;
-				pSlow = pSlow->next;
-			}
-		}
-        return pSlow;
+	while (pFast) {
+	    pFast = pFast->next;
+	    if (pFast) {
+	        pFast = pFast->next;
+	        pSlow = pSlow->next;
+	    }
+	}
+	return pSlow;
     }
 };
 ```

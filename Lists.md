@@ -125,15 +125,15 @@ public:
             return prev;
         }
     ListNode* middleNode(ListNode* head) {
-        ListNode* fast = head, * slow = head;
-        while (fast) {
-            fast = fast->next;
-            if (fast) {
-                fast = fast->next;
-                slow = slow->next;
+        ListNode* pFast = head, * pSlow = head;
+        while (pFast) {
+            pFast = pFast->next;
+            if (pFast) {
+                pFast = pFast->next;
+                pSlow = pSlow->next;
             }
         }
-        return slow;
+        return pSlow;
     }
     void reorderList(ListNode* head) {
         if (!(head && head->next && head->next->next))

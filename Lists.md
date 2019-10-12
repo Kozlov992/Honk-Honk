@@ -48,7 +48,7 @@ public:
            return l2;
        if (!l2)
            return l1;
-       ListNode* buf = new ListNode(0), * current = buf;
+       ListNode* temp = new ListNode(0), * current = temp;
        while (l2 && l1) {
            if (l1->val > l2->val) {
                current->next = l2;
@@ -61,7 +61,9 @@ public:
            current = current->next;
        }
        (l1) ? (current->next = l1) : (current->next = l2);
-       return buf->next;
+       ListNode *buf = temp->next;
+       delete(temp);
+       return buf; 
    }
 };
 ```
@@ -162,7 +164,7 @@ public:
            return l2;
        if (!l2)
            return l1;
-       ListNode* buf = new ListNode(0), * current = buf;
+       ListNode* temp = new ListNode(0), * current = temp;
        while (l2 && l1) {
            if (l1->val > l2->val) {
                current->next = l2;
@@ -175,7 +177,9 @@ public:
            current = current->next;
        }
        (l1) ? (current->next = l1) : (current->next = l2);
-       return buf->next;
+       ListNode *buf = temp->next;
+       delete(temp);
+       return buf; 
    }
     ListNode* middleNode(ListNode* head) {
         ListNode* pFast = head;

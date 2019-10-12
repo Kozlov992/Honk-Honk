@@ -103,7 +103,7 @@ public:
         }
         pSlow = head;
         pFast = pFast->next;
-        while (!(pSlow == pFast)) {
+        while (pSlow != pFast) {
             pFast = pFast->next;
             pSlow = pSlow->next;
         }
@@ -127,15 +127,12 @@ public:
             return prev;
         }
     ListNode* middleNode(ListNode* head) {
-        ListNode* pFast = head, * pSlow = head;
-        while (pFast) {
-            pFast = pFast->next;
-            if (pFast) {
-                pFast = pFast->next;
-                pSlow = pSlow->next;
-            }
-        }
-        return pSlow;
+        ListNode* fast = head, * slow = head;
+        while (fast && fast->next) {
+			fast = fast->next->next;
+			slow = slow->next;
+		}
+        return slow;
     }
     void reorderList(ListNode* head) {
         if (!(head && head->next && head->next->next))
@@ -183,12 +180,9 @@ public:
    }
     ListNode* middleNode(ListNode* head) {
         ListNode* pFast = head;
-        while (pFast) {
-            pFast = pFast->next;
-            if (pFast && pFast->next) {
-                pFast = pFast->next;
-                head = head->next;
-            }
+        while (pFast && pFast->next && pFast->next->next) {
+            pFast = pFast->next->next;
+            head = head->next;
         }
         pFast = head->next;
         head->next = NULL;
@@ -261,15 +255,12 @@ public:
         return prev;
     }
     ListNode* middleNode(ListNode* head) {
-        ListNode* pFast = head, * pSlow = head;
-        while (pFast) {
-            pFast = pFast->next;
-            if (pFast && pFast->next) {
-                pFast = pFast->next;
-                pSlow = pSlow->next;
-            }
-        }
-        return pSlow;
+        ListNode* fast = head, * slow = head;
+        while (fast && fast->next) {
+			fast = fast->next->next;
+			slow = slow->next;
+		}
+        return slow;
     }
     bool isPalindrome(ListNode* head) {
         if (!(head && head->next))
@@ -306,15 +297,12 @@ https://leetcode.com/problems/middle-of-the-linked-list/
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        ListNode* pFast = head, * pSlow = head;
-	while (pFast) {
-	    pFast = pFast->next;
-	    if (pFast) {
-	        pFast = pFast->next;
-	        pSlow = pSlow->next;
-	    }
-	}
-	return pSlow;
+        ListNode* fast = head, * slow = head;
+        while (fast && fast->next) {
+			fast = fast->next->next;
+			slow = slow->next;
+		}
+        return slow;
     }
 };
 ```

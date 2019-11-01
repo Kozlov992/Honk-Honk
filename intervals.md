@@ -9,9 +9,6 @@
 https://leetcode.com/problems/non-overlapping-intervals/
 
 ```C++
-bool CompareByFirstEndPoint(vector<int>& a, vector<int>& b){
-        return a[0] < b[0];
-    }
 class Solution {
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
@@ -36,9 +33,6 @@ public:
 https://leetcode.com/problems/merge-intervals/
 
 ```C++
-bool CompareByFirstEndPoint(vector<int>& a, vector<int>& b){
-        return a[0] < b[0];
-    }
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {

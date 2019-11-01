@@ -15,7 +15,7 @@ bool CompareByFirstEndPoint(vector<int>& a, vector<int>& b){
 class Solution {
 public:
     int eraseOverlapIntervals(vector<vector<int>>& intervals) {
-        sort(intervals.begin(), intervals.end(), CompareByFirstEndPoint);
+        sort(intervals.begin(), intervals.end());
         int count = 0, prev = 0;
         for (int i = 1; i < intervals.size(); i++) {
             if (intervals[i][0] < intervals[prev][1]) {
@@ -42,7 +42,7 @@ bool CompareByFirstEndPoint(vector<int>& a, vector<int>& b){
 class Solution {
 public:
     vector<vector<int>> merge(vector<vector<int>>& intervals) {
-        sort(intervals.begin(), intervals.end(), CompareByFirstEndPoint);
+        sort(intervals.begin(), intervals.end());
         vector<vector<int>> merged(0);
         if (intervals.size() != 0)
             merged.push_back(intervals[0]);

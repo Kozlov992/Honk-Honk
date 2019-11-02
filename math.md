@@ -43,13 +43,13 @@ public:
     int fib(int N) {
         if (N <= 1)
             return N;
-        int a = 0, b = 1, buf;
+        int first = 0, second = 1, next;
         while (N-- >= 2) {
-            buf = a + b;
-            a = b;
-            b = buf;
+            next = first + second;
+            first = second;
+            second = next;
         }
-        return b;
+        return second;
     }
 };
 ```

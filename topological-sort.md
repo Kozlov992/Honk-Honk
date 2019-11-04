@@ -79,12 +79,10 @@ class Solution {
 public:
     vector<vector<int>> BuildGraph(vector<string> &words){
         vector<vector<int>> graph('z' - 'a' + 1);
-        string word1, word2;
-        unsigned int len;
         for (int i = 1; i < words.size(); i++){
-            word1 = words[i];
-            word2 = words[i - 1];
-            len = (word1.length() <= word2.length()) ? (word1.length()) : (word2.length());
+            string word1 = words[i];
+            string word2 = words[i - 1];
+            unsigned int len = min(word1.length(), word2.length());
             for (int j = 0 ; j < len; j++){
                 if (word1[j] != word2[j]) {
                     graph[word1[j] - 'a'].push_back(word2[j] - 'a');

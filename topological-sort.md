@@ -84,7 +84,7 @@ public:
         for (int i = 1; i < words.size(); i++){
             word1 = words[i];
             word2 = words[i - 1];
-            (word1.length() <= word2.length()) ? (len = word1.length()) : (len = word2.length());
+            len = (word1.length() <= word2.length()) ? (word1.length()) : (word2.length());
             for (int j = 0 ; j < len; j++){
                 if (word1[j] != word2[j]) {
                     graph[word1[j] - 'a'].push_back(word2[j] - 'a');

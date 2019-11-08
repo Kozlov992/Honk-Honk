@@ -3,7 +3,6 @@
 + [Recursive Approach using Memoization](#recursive-approach-using-memoization)
 + [Iterative Top-Down Approach](#iterative-top-down-approach)
 + [Binet's formula](#binet's-formula)
-https://leetcode.com/problems/fibonacci-number/
 
 ## Recursion
 ```C++

@@ -42,9 +42,9 @@ public:
     int fib(int N) {
         if (N <= 1)
             return N;
-        int first = 0, second = 1, next;
+        int first = 0, second = 1;
         while (N-- >= 2) {
-            next = first + second;
+            int next = first + second;
             first = second;
             second = next;
         }

@@ -4,10 +4,11 @@
 + [Three Sum](#three-sum)
 + [Sum Equals K](#sum-equals-k)
 
-## Two Sum
+## Two Sum 
 
 https://leetcode.com/problems/two-sum/
 
+1)No auxiliary space
 ```C++
 class Solution {
 public:
@@ -22,7 +23,24 @@ public:
     }
 };
 ```
+2)Using map
 
+```C++
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target)  {
+        map<int, int> Sum;
+        for (int i = 0; i < nums.size(); i++) {
+            int secondNum = target - nums[i];
+            if (Sum.find(secondNum) != Sum.end())           
+                return vector<int> {i, Sum[secondNum]}; 
+            Sum[nums[i]] = i;
+        }
+        return vector<int> (0);
+    }
+};
+```
+    
 ## Three Sum
 
 https://leetcode.com/problems/3sum/
@@ -64,6 +82,7 @@ public:
 
 https://leetcode.com/problems/subarray-sum-equals-k/
 
+1)No auxiliary space
 ```C++
 class Solution {
 public:
@@ -76,6 +95,26 @@ public:
                 if (sum == k)
                     count++;
             }
+        }
+        return count;
+    }
+};
+```
+
+2)Using map
+
+```C++
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        int count = 0;
+        map<int, int> cSum;
+        cSum[0]++;
+        int sum = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            sum += nums[i];
+            count += cSum[sum - k];
+            cSum[sum]++;
         }
         return count;
     }

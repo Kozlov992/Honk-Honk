@@ -137,6 +137,16 @@ https://leetcode.com/problems/decode-ways/
 https://leetcode.com/problems/unique-paths/
 
 ```C++
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        vector<int> current(n, 1);
+        for (int i = 1; i < m; i++)
+            for (int j = 1; j < n; j++)
+                current[j] += current[j - 1];
+        return current[n - 1];
+    }
+};
 
 ```
 

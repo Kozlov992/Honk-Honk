@@ -30,7 +30,20 @@ https://stepik.org/lesson/13259/step/5?unit=3444
 https://leetcode.com/problems/climbing-stairs/
 
 ```C++
-
+class Solution {
+public:
+    int climbStairs(int N) {
+        if (N == 1)
+            return N;
+        int first = 1, second = 2, next;
+        while (N-- >= 3) {
+            next = first + second;
+            first = second;
+            second = next;
+        }
+        return second;
+    }
+};
 ```
 
 ## Longest Increasing Subsequence
@@ -38,13 +51,34 @@ https://leetcode.com/problems/climbing-stairs/
 https://leetcode.com/problems/longest-increasing-subsequence/
 
 ```C++
-
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 0)
+            return 0;
+        vector<int> dp(n);
+        dp[0] = 1;
+        int maxans = 1;
+        for (int i = 1; i < n; i++) {
+            int maxval = 0;
+            for (int j = 0; j < i; j++)
+                if (nums[i] > nums[j])
+                    maxval = max(maxval, dp[j]);
+            dp[i] = maxval + 1;
+            maxans = max(maxans, dp[i]);
+        }
+        return maxans;
+    }
+};
 ```
 
 ## Coin Change
 
 https://leetcode.com/problems/coin-change/
 
+
+```C++
 
 ```
 
@@ -129,7 +163,23 @@ https://leetcode.com/problems/jump-game-ii/
 https://leetcode.com/problems/decode-ways/
 
 ```C++
-
+class Solution {
+public:
+    int numDecodings(string s) {
+        int prev = 0, cur = 1;
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '0')
+                cur = 0;
+            int temp = cur + prev;
+            if (s[i] == '1' || s[i] == '2' && s[i + 1] <= '6')  
+                prev = cur;         
+            else
+                prev = 0;
+            cur = temp;
+        }
+        return cur;        
+    }
+};
 ```
 
 ## Unique Paths
@@ -163,7 +213,19 @@ https://leetcode.com/problems/unique-paths-ii/
 https://leetcode.com/problems/longest-common-subsequence/
 
 ```C++
-
+class Solution {
+public:
+    int longestCommonSubsequence(string a, string b) {
+        vector<vector<int>> m(a.size() + 1, vector<int>(b.size() + 1));
+        for (int i = 1; i <= a.size(); ++i)
+            for (int j = 1; j <= b.size(); ++j)
+                if (a[i - 1] == b[j - 1])
+                    m[i][j] = m[i - 1][j - 1] + 1;
+                else 
+                    m[i][j] = max(m[i - 1][j], m[i][j - 1]);
+        return m[a.size()][b.size()];
+    }
+};
 ```
 
 ## Word Break

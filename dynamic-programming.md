@@ -22,7 +22,21 @@
 https://stepik.org/lesson/13259/step/5?unit=3444
 
 ```C++
-
+#include <iostream>
+#include <vector>
+using namespace std;
+int main() {
+  int capacity, n, value;
+  cin >> capacity >> n;
+  vector<vector<int>> maxValue(n + 1, vector<int>(capacity + 1, 0));
+  for (int i = 1; i <= n; i++) {
+    cin >> value;
+    for (int j = 1; j <= capacity; j++)
+      maxValue[i][j] = (value > j) ? (maxValue[i - 1][j]) : (max(maxValue[i - 1][j], maxValue[i - 1][j - value] + value));
+  }
+  cout << maxValue[n][capacity];
+  return 0;
+}
 ```
 
 ## Climbing Stairs
@@ -79,7 +93,21 @@ https://leetcode.com/problems/coin-change/
 
 
 ```C++
-
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int max = amount + 1;
+        vector<int> dp(max, max);
+        dp[0] = 0;
+        for (int i = 1; i <= amount; i++) {
+            for (int j = 0; j < coins.size(); j++) {
+            if (coins[j] <= i)
+                dp[i] = min(dp[i], dp[i - coins[j]] + 1);
+            }
+        }
+    return dp[amount] > amount ? -1 : dp[amount];
+    }
+};
 ```
 
 ## Coin Change 2
@@ -87,7 +115,18 @@ https://leetcode.com/problems/coin-change/
 https://leetcode.com/problems/coin-change-2/
 
 ```C++
-
+class Solution {
+public:
+    int change(int amount, vector<int>& coins) {
+        int max = amount + 1;
+        vector<int> dp(max);
+        dp[0] = 1;
+        for (int i = 0; i < coins.size(); i++)
+            for (int j = coins[i]; j <= amount; j++)
+                dp[j] += dp[j - coins[i]];
+    return dp[amount];
+    }
+};
 ```
 
 ## House Robber
@@ -147,7 +186,16 @@ public:
 https://leetcode.com/problems/jump-game/
 
 ```C++
-
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int lastPos = nums.size() - 1;
+        for (int i = nums.size() - 1; i >= 0; i--)
+            if (i + nums[i] >= lastPos)
+                lastPos = i;
+        return lastPos == 0;
+    }
+};
 ```
 
 ## Jump Game II
@@ -155,7 +203,28 @@ https://leetcode.com/problems/jump-game/
 https://leetcode.com/problems/jump-game-ii/
 
 ```C++
-
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        if (nums.size() < 2)
+            return 0;
+        int ladder = nums[0];
+        int stairs = nums[0];
+        int jump = 1;
+        for (int level = 1; level < nums.size(); level++) {
+            if (level == nums.size() - 1)
+                return jump;
+            if (level + nums[level] > ladder)
+                ladder = level + nums[level];
+            stairs--;
+            if (stairs == 0) {
+                jump++;
+                stairs = ladder - level;
+            }
+        }
+        return jump;
+    }
+};
 ```
 
 ## Decode Ways
@@ -205,7 +274,22 @@ public:
 https://leetcode.com/problems/unique-paths-ii/
 
 ```C++
-
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+    int width = obstacleGrid[0].size();
+    vector<int>dp(width);
+    dp[0] = 1;
+    for (auto row : obstacleGrid) 
+        for (int j = 0; j < width; j++) {
+            if (row[j] == 1)
+                dp[j] = 0;
+            else if (j > 0)
+                dp[j] += dp[j - 1];
+        }
+    return dp[width - 1];
+    }
+};
 ```
 
 ## Longest Common Subsequence
@@ -217,8 +301,8 @@ class Solution {
 public:
     int longestCommonSubsequence(string a, string b) {
         vector<vector<int>> m(a.size() + 1, vector<int>(b.size() + 1));
-        for (int i = 1; i <= a.size(); ++i)
-            for (int j = 1; j <= b.size(); ++j)
+        for (int i = 1; i <= a.size(); i++)
+            for (int j = 1; j <= b.size(); j++)
                 if (a[i - 1] == b[j - 1])
                     m[i][j] = m[i - 1][j - 1] + 1;
                 else 
@@ -260,7 +344,40 @@ public:
 https://leetcode.com/problems/n-queens/
 
 ```C++
-
+class Solution {
+public:
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> res;
+        vector<string> nQueens(n, string(n, '.'));
+        solveNQueens(res, nQueens, 0, n);
+        return res;
+    }
+private:
+    void solveNQueens(vector<vector<string> > &res, vector<string> &nQueens, int row, int &n) {
+        if (row == n) {
+            res.push_back(nQueens);
+            return;
+        }
+        for (int col = 0; col < n; col++)
+            if (isValid(nQueens, row, col, n)) {
+                nQueens[row][col] = 'Q';
+                solveNQueens(res, nQueens, row + 1, n);
+                nQueens[row][col] = '.';
+            }
+    }
+    bool isValid(vector<string> &nQueens, int row, int col, int &n) {
+        for (int i = 0; i < row; i++)
+            if (nQueens[i][col] == 'Q')
+                return false;
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--)
+            if (nQueens[i][j] == 'Q')
+                return false;
+        for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++)
+            if (nQueens[i][j] == 'Q')
+                return false;
+        return true;
+    }
+};
 ```
 
 ## N-Queens II
@@ -268,5 +385,38 @@ https://leetcode.com/problems/n-queens/
 https://leetcode.com/problems/n-queens-ii/
 
 ```C++
-
+class Solution {
+public:
+    int totalNQueens(int n) {
+        int res = 0;
+        vector<string> nQueens(n, string(n, '.'));
+        solveNQueens(res, nQueens, 0, n);
+        return res;
+    }
+private:
+    void solveNQueens(int &res, vector<string> &nQueens, int row, int &n) {
+        if (row == n) {
+            res++;
+            return;
+        }
+        for (int col = 0; col < n; col++)
+            if (isValid(nQueens, row, col, n)) {
+                nQueens[row][col] = 'Q';
+                solveNQueens(res, nQueens, row + 1, n);
+                nQueens[row][col] = '.';
+            }
+    }
+    bool isValid(vector<string> &nQueens, int row, int col, int &n) {
+        for (int i = 0; i < row; i++)
+            if (nQueens[i][col] == 'Q')
+                return false;
+        for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--)
+            if (nQueens[i][j] == 'Q')
+                return false;
+        for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++)
+            if (nQueens[i][j] == 'Q')
+                return false;
+        return true;
+    }
+};
 ```
